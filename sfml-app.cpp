@@ -1,6 +1,5 @@
-//1. g++ -c sfml-app.cpp Bat.cpp
-//2. g++ sfml-app.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
-//3. ./sfml-app
+//1. g++  sfml-app.cpp Bat.cpp -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+//2. ./sfml-app
 
 #include "Bat.h"
 #include <sstream>
