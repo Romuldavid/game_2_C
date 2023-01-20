@@ -2,6 +2,7 @@
 //2. ./sfml-app
 
 #include "Bat.h"
+#include "Ball.h"
 #include <sstream>
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
@@ -19,6 +20,9 @@ int main()
 
     // Create a bat at the bottom center of the screen
     Bat bat(1920/2, 1080 - 20);
+
+    //Create a ball
+    Ball ball(1920 / 2, 0);
 
     // We will add a ball in the next chapter
 
@@ -91,10 +95,32 @@ int main()
        //Update the delta time
        Time dt = clock.restart();
        bat.update(dt);
+       ball.update(dt);
        //Update the HUD text
        std::stringstream ss;
        ss << "Score: " << score << " Lives:" << lives;
        hud.setString(ss.str());
+
+       //Handle ball hitting the bottom
+       if(ball.getPosition().top > window.getSize().y)
+       {
+          //reverse the ball direction
+          ball.reboundBottom();
+
+          //Remove a life
+          lives--;
+
+          //Check for zero lives
+          if(lives < 1)
+          {
+               //reset the score
+               score = 0;
+
+               //reset the lives
+               lives = 3;
+          }
+
+       }
         /*
         Draw the bat, the ball and the HUD
         *****************************
@@ -104,6 +130,7 @@ int main()
        window.clear();
        window.draw(hud);
        window.draw(bat.getShape());
+       window.draw(ball.getShape());
        window.display();
     }
 
